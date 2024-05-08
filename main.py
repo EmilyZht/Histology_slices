@@ -7,11 +7,10 @@ import argparse
         description="Script that register your sliced brain image to AllenCCF"
     )
     parser.add_argument("--path", type=str,
-                        default="C:/Users/haz4006/Documents/Histology_slice/Ab3D-E1-AC01/",
+                        required=True,
                         help="Path to the directory that contains your slice images")
     parser.add_argument("--file_name", required=True, type=str, help="Name of the file")
-    parser.add_argument("--path2ccf", type=str,
-                        default="C:/Users/haz4006/Documents/MouseCCF/",
+    parser.add_argument("--path2ccf", type=str, required=True,
                         help="Path to the directory that contains your CCF")
     parser.add_argument("--direction", type=str, default='medial',
                         help="Is it medial or lateral?")
