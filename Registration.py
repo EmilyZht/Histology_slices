@@ -9,8 +9,8 @@ import pandas as pd
 import skimage as ski
 
 
-def af_registration(file_name, path="C:/Users/haz4006/Documents/Histology_slice/Ab3D-E1-AC01/",
-                    path2ccf="C:/Users/haz4006/Documents/MouseCCF/", direction='medial', channel=3):
+def af_registration(file_name, path,
+                    path2ccf, direction='medial', channel=3):
     excel = pd.read_csv(path + 'Ab3D-E-Screening-Ab3D-E1.csv')
     slice_info = excel[excel['Czi Filename'] == file_name]
     if direction == 'medial':
@@ -22,7 +22,7 @@ def af_registration(file_name, path="C:/Users/haz4006/Documents/Histology_slice/
 
     # Get an AICSImage object
     img1 = czifile.imread(path + file_name)[scene, channel - 1, :, :, 0]  #SCYX0
-    # 'S': 'Scene',  # contiguous regions of interest in a mosaic image; C: Channel, Y: Height, X: Width, 0: sample
+    # 'S': 'Scene',  contiguous regions of interest in a mosaic image; C: Channel, Y: Height, X: Width, 0: sample
     # plt.imshow(img1)
     # plt.show()
 
@@ -46,10 +46,6 @@ def af_registration(file_name, path="C:/Users/haz4006/Documents/Histology_slice/
     columns_to_delete = np.all(img1_down == 0, axis=0)
     cropped_img1 = img1_down[~rows_to_delete, :]
     cropped_img1 = cropped_img1[:, ~columns_to_delete]
-    # cv2.resize(cropped_img1, ref1.shape)
-    # plt.imshow(cropped_img1, vmax=3000)
-    # plt.show()
-    # imwrite('C:/Users/haz4006/Documents/ZW1-Ab3D-E-AA/test.tif', img[0, 3, :, :, 0])
 
     annotation = np.load(path2ccf + "annotation_volume_10um_by_index.npy")
     annotation1 = np.rot90(annotation[:, :, int(annotation.shape[2] / 2 + 2 * position)], 3)
@@ -82,6 +78,3 @@ def af_registration(file_name, path="C:/Users/haz4006/Documents/Histology_slice/
     plt.show()
     fig.savefig(path + file_name.split('.')[0] + '-registration.png')
     return ax0
-
-
-# af_registration(path="C:/Users/haz4006/Documents/Histology_slice/Ab3D-E1-AC01/", file_name='Ab3D-E1-AC-12.czi', path2ccf="C:/Users/haz4006/Documents/MouseCCF/", direction='medial', channel=3)
