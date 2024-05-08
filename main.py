@@ -2,7 +2,7 @@ from Registration import *
 import sys
 import argparse
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Script that register your sliced brain image to AllenCCF"
     )
@@ -26,8 +26,8 @@ import argparse
     path2ccf = args.path2ccf
     direction = args.direction
     channel = args.channel
-    print(af_registration(file_name, path, path2ccf, direction, channel))'''
-
-files = ['Ab3D-E1-AC-04.czi', 'Ab3D-E1-AC-10.czi', 'Ab3D-E1-AC-12.czi']
-for file_name in files:
-    af_registration(file_name=file_name)
+    print(af_registration(file_name, path, path2ccf, direction, channel))
+    
+# files = ['Ab3D-E1-AC-04.czi', 'Ab3D-E1-AC-10.czi', 'Ab3D-E1-AC-12.czi']
+# for file_name in files:
+#     af_registration(file_name=file_name)
